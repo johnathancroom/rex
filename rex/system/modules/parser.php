@@ -79,11 +79,14 @@ class parser extends \rex\system\skeletons\module {
     $tag = $arguments[0];
     $data = $arguments[1];
     $string = $arguments[2];
-    if (preg_match('|' . preg_quote($this->rex->core->modules['settings']->get('rex.system.modules.parser.delimiter.left')) . $tag . preg_quote($this->rex->core->modules['settings']->get('rex.system.modules.parser.delimiter.right')) . '(.+?)' . preg_quote($this->rex->core->modules['settings']->get('rex.system.modules.parser.delimiter.left')) . '/' . $tag . preg_quote($this->rex->core->modules['settings']->get('rex.system.modules.parser.delimiter.right')) . '|s', $string, $matches) == false) {
-      return false;
+    if (($matches = preg_match('|' . preg_quote($this->rex->core->modules['settings']->get('rex.system.modules.parser.delimiter.left')) . $tag . preg_quote($this->rex->core->modules['settings']->get('rex.system.modules.parser.delimiter.right')) . '(.+?)' . preg_quote($this->rex->core->modules['settings']->get('rex.system.modules.parser.delimiter.left')) . '/' . $tag . preg_quote($this->rex->core->modules['settings']->get('rex.system.modules.parser.delimiter.right')) . '|s', $string, $match)) == false) {
+      return $string;
     }
-    $wrapper = $matches[0];
-    $contents = $matches[1];
+    if ($matches == 0) {
+      return $string;
+    }
+    $wrapper = $match[0];
+    $contents = $match[1];
     for ($i = 0; $i < count($data); $i++) {
       if (isset($replacement) == false) {
         $replacement = $this->parse($contents, $data[$i]);
