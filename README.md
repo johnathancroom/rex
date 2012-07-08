@@ -39,4 +39,4 @@ I created this framework to eventually grow to complete with other popular frame
 
 If you're looking for a coder, I'm your man.  Hopefully what I've done here will demonstrate that.
 
-Stay around for more updates, information, and great code.  [Watch this repository](https://github.com/mtthlm/rex/toggle_watch)!
+Stay around for more updates, information, and great code.  Watch this repository!
