@@ -1,6 +1,11 @@
 <?php
 // index.php
 
+if (version_compare(PHP_VERSION, '5.3', '>=') === false) {
+  echo 'PHP must be version 5.3 or greater';
+  exit;
+}
+
 include 'rex/rex.php';
 $rex = new rex\handle;
 $rex->application->run();

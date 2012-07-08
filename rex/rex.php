@@ -5,11 +5,6 @@ namespace rex;
 
 class handle {
   public function __construct() {
-    if (version_compare(PHP_VERSION, '5.3', '>=') === false) {
-      echo 'PHP must be version 5.3 or greater';
-      exit;
-    }
-    
     ini_set('display_errors', 1);
     ini_set('error_reporting', E_ALL | E_STRICT);
     
