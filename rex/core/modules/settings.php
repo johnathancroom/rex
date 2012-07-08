@@ -3,73 +3,46 @@
 
 namespace rex\core\modules;
 
-class settings extends \rex\core\skeletons\module {
-  private $settings;
+class settings extends module {
+  protected $settings;
   
-  public function exists() {
-    $arguments = func_get_args();
-    if (isset($arguments[0]) == false) {
+  public function exists($key) {
+    if (is_string($key) === false) {
       return false;
     }
-    if (is_string($arguments[0]) == false) {
-      return false;
-    }
-    $key = $arguments[0];
-    if (isset($this->settings[$key]) == false) {
-      return false;
-    }
-    return true;
+    return isset($this->settings[$key]);
   }
-  public function add() {
-    $arguments = func_get_args();
-    foreach (array(0, 1) as $key) {
-      if (isset($arguments[$key]) == false) {
-        return false;
-      }
-    }
-    foreach (array(0, 1) as $key) {
-      if (is_string($arguments[$key]) == false) {
-        return false;
-      }
-    }
-    $key = $arguments[0];
-    if ($this->exists($key) == true) {
+  public function add($key, $value) {
+    if (is_string($key) === false) {
       return false;
     }
-    $value = $arguments[1];
+    if (is_string($value) === false) {
+      return false;
+    }
+    if ($this->exists($key) === true) {
+      return false;
+    }
     $this->settings[$key] = $value;
     return true;
   }
-  public function modify() {
-    $arguments = func_get_args();
-    foreach (array(0, 1) as $key) {
-      if (isset($arguments[$key]) == false) {
-        return false;
-      }
-    }
-    foreach (array(0, 1) as $key) {
-      if (is_string($arguments[$key]) == false) {
-        return false;
-      }
-    }
-    $key = $arguments[0];
-    if ($this->exists($key) == false) {
+  public function modify($key, $value) {
+    if (is_string($key) === false) {
       return false;
     }
-    $value = $arguments[1];
+    if (is_string($value) === false) {
+      return false;
+    }
+    if ($this->exists($key) === false) {
+      return false;
+    }
     $this->settings[$key] = $value;
     return true;
   }
-  public function remove() {
-    $arguments = func_get_args();
-    if (isset($arguments[0]) == false) {
+  public function remove($key) {
+    if (is_string($key) === false) {
       return false;
     }
-    if (is_string($arguments[0]) == false) {
-      return false;
-    }
-    $key = $arguments[0];
-    if ($this->exists($key) == false) {
+    if ($this->exists($key) === false) {
       return false;
     }
     unset($this->settings[$key]);
@@ -77,14 +50,14 @@ class settings extends \rex\core\skeletons\module {
   }
   public function get() {
     $arguments = func_get_args();
-    if (isset($arguments[0]) == false) {
+    if (isset($arguments[0]) === false) {
       return $this->settings;
     }
-    if (is_string($arguments[0]) == false) {
+    if (is_string($arguments[0]) === false) {
       return false;
     }
     $key = $arguments[0];
-    if ($this->exists($key) == false) {
+    if ($this->exists($key) === false) {
       return false;
     }
     return $this->settings[$key];
